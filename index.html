@@ -54,18 +54,11 @@
         button:hover {
             background-color: #45a049;
         }
-        .upload-sections {
-            display: flex;
-            justify-content: space-between;
-            gap: 20px;
+        #downloadButton {
+            background-color: #2196F3;
         }
-        .upload-section {
-            flex: 1;
-        }
-        .preview-small {
-            max-width: 200px;
-            max-height: 200px;
-            object-fit: contain;
+        #downloadButton:hover {
+            background-color: #1976D2;
         }
     </style>
 </head>
@@ -73,25 +66,16 @@
     <div class="container">
         <h1>Face Overlay App</h1>
         
-        <div class="upload-sections">
-            <div class="upload-section">
-                <h3>Upload Main Photo:</h3>
-                <input type="file" id="photoInput" accept="image/*">
-                <div class="preview-container">
-                    <img id="photoPreview" class="preview-image">
-                </div>
-            </div>
-
-            <div class="upload-section">
-                <h3>Upload Overlay Photo:</h3>
-                <input type="file" id="overlayInput" accept="image/*">
-                <div class="preview-container">
-                    <img id="overlayPreview" class="preview-image preview-small">
-                </div>
+        <div class="upload-section">
+            <h3>Upload Your Photo:</h3>
+            <input type="file" id="photoInput" accept="image/*">
+            <div class="preview-container">
+                <img id="photoPreview" class="preview-image">
             </div>
         </div>
 
-        <button id="processButton">Process Image</button>
+        <button id="processButton" style="display: none;">Process Image</button>
+        <button id="downloadButton" style="display: none;">Download Image</button>
 
         <canvas id="resultCanvas"></canvas>
     </div>
