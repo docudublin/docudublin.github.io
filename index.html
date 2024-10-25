@@ -19,6 +19,13 @@
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
+        .instructions {
+            background-color: #e8f4ff;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            border-left: 4px solid #2196F3;
+        }
         .upload-section {
             margin: 20px 0;
         }
@@ -29,6 +36,7 @@
             margin: 20px auto;
             border: 2px dashed #ccc;
             padding: 10px;
+            text-align: center;
         }
         .preview-image {
             max-width: 100%;
@@ -39,6 +47,7 @@
             max-width: 100%;
             display: block;
             margin: 20px auto;
+            border: 1px solid #ccc;
         }
         button {
             background-color: #4CAF50;
@@ -60,21 +69,53 @@
         #downloadButton:hover {
             background-color: #1976D2;
         }
+        .input-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+        .custom-file-input {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #4CAF50;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 10px 0;
+        }
+        .custom-file-input:hover {
+            background: #45a049;
+        }
+        #photoInput {
+            display: none;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Face Overlay App</h1>
         
+        <div class="instructions">
+            <h3>How to use:</h3>
+            <ol>
+                <li>Click "Choose file" to upload a photo containing faces</li>
+                <li>Wait for the face detection to process</li>
+                <li>The app will automatically add overlays to detected faces</li>
+                <li>Click "Download Image" to save the result</li>
+            </ol>
+        </div>
+        
         <div class="upload-section">
             <h3>Upload Your Photo:</h3>
-            <input type="file" id="photoInput" accept="image/*">
+            <div class="input-wrapper">
+                <label for="photoInput" class="custom-file-input">Choose file</label>
+                <input type="file" id="photoInput" accept="image/*">
+            </div>
             <div class="preview-container">
                 <img id="photoPreview" class="preview-image">
+                <p>Preview will appear here</p>
             </div>
         </div>
 
-        <button id="processButton" style="display: none;">Process Image</button>
         <button id="downloadButton" style="display: none;">Download Image</button>
 
         <canvas id="resultCanvas"></canvas>
