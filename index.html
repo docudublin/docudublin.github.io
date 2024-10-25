@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Face Overlay App</title>
+    <script defer src="https://cdn.jsdelivr.net/npm/@vladmandic/face-api/dist/face-api.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .upload-section {
+            margin: 20px 0;
+        }
+        .preview-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin: 20px auto;
+            border: 2px dashed #ccc;
+            padding: 10px;
+        }
+        .preview-image {
+            max-width: 100%;
+            display: block;
+            margin: 0 auto;
+        }
+        #resultCanvas {
+            max-width: 100%;
+            display: block;
+            margin: 20px auto;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            display: block;
+            margin: 20px auto;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .upload-sections {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+        .upload-section {
+            flex: 1;
+        }
+        .preview-small {
+            max-width: 200px;
+            max-height: 200px;
+            object-fit: contain;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Face Overlay App</h1>
+        
+        <div class="upload-sections">
+            <div class="upload-section">
+                <h3>Upload Main Photo:</h3>
+                <input type="file" id="photoInput" accept="image/*">
+                <div class="preview-container">
+                    <img id="photoPreview" class="preview-image">
+                </div>
+            </div>
+
+            <div class="upload-section">
+                <h3>Upload Overlay Photo:</h3>
+                <input type="file" id="overlayInput" accept="image/*">
+                <div class="preview-container">
+                    <img id="overlayPreview" class="preview-image preview-small">
+                </div>
+            </div>
+        </div>
+
+        <button id="processButton">Process Image</button>
+
+        <canvas id="resultCanvas"></canvas>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
