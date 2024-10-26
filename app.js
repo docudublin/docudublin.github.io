@@ -38,15 +38,17 @@ async function initializeApp() {
     const photoInput = document.getElementById('photoInput');
     const photoPreview = document.getElementById('photoPreview');
     const resultCanvas = document.getElementById('resultCanvas');
+    const downloadButton = document.getElementById('downloadButton');
 
     // Log which elements are missing for debugging
     if (!photoInput) console.error('photoInput not found');
     if (!photoPreview) console.error('photoPreview not found');
     if (!resultCanvas) console.error('resultCanvas not found');
+    if (!downloadButton) console.error('downloadButton not found');
 
     // Verify all elements exist
-    if (!photoInput || !photoPreview || !resultCanvas) {
-        throw new Error('Required DOM elements not found');
+    if (!photoInput || !photoPreview || !resultCanvas || !downloadButton) {
+        throw new Error('Required DOM elements not found. Please ensure all HTML elements are present.');
     }
 
     const ctx = resultCanvas.getContext('2d');
@@ -73,7 +75,7 @@ async function initializeApp() {
                     await handleFileUpload(e, photoPreview);
                     // Automatically process the image after upload
                     if (photoPreview.src) {
-                        await processImage(photoPreview, resultCanvas, ctx, overlayImage);
+                        await processImage(photoPreview, resultCanvas, ctx, overlayImage, downloadButton);
                     }
                 }
             } catch (error) {
@@ -82,6 +84,19 @@ async function initializeApp() {
             }
         });
     }
+
+    // Handle download button click
+    downloadButton.addEventListener('click', () => {
+        const link = document.createElement('a');
+        const now = new Date();
+        const dateString = now.toISOString()
+            .replace(/[:.]/g, '-')
+            .replace('T', '_')
+            .replace('Z', '');
+        link.download = `processed-image_${dateString}.png`;
+        link.href = resultCanvas.toDataURL('image/png');
+        link.click();
+    });
 }
 
 // Handle file upload and preview
@@ -103,7 +118,7 @@ function handleFileUpload(event, previewElement) {
 }
 
 // Process image with face detection and overlay
-async function processImage(photoPreview, resultCanvas, ctx, overlayImage) {
+async function processImage(photoPreview, resultCanvas, ctx, overlayImage, downloadButton) {
     try {
         // Show processing message
         const container = document.querySelector('.container');
@@ -112,6 +127,9 @@ async function processImage(photoPreview, resultCanvas, ctx, overlayImage) {
         processingMessage.style.padding = '10px';
         processingMessage.textContent = 'Processing image...';
         container.insertBefore(processingMessage, resultCanvas);
+
+        // Hide download button while processing
+        downloadButton.style.display = 'none';
 
         // Detect faces in main image
         const mainDetections = await faceapi.detectAllFaces(photoPreview, 
@@ -157,6 +175,9 @@ async function processImage(photoPreview, resultCanvas, ctx, overlayImage) {
         link.href = resultCanvas.toDataURL('image/png');
         link.click();
 
+        // Show download button for additional downloads
+        downloadButton.style.display = 'inline-block';
+
         // Remove processing message
         processingMessage.remove();
     } catch (error) {
@@ -168,9 +189,9 @@ async function processImage(photoPreview, resultCanvas, ctx, overlayImage) {
 // Load required face-api models
 async function loadModels() {
     try {
-        // Use a CDN that's known to work well
-        const modelUrl = 'https://cdn.jsdelivr.net/npm/@vladmandic/face-api/model';
-        await faceapi.nets.tinyFaceDetector.loadFromUri(modelUrl);
+        // Use the correct model URL from the CDN
+        const modelUrl = 'https://cdn.jsdelivr.net/npm/@vladmandic/face-api/model/tiny_face_detector_model-weights_manifest.json';
+        await faceapi.nets.tinyFaceDetector.loadFromUri('https://cdn.jsdelivr.net/npm/@vladmandic/face-api/model/');
         console.log('Models loaded successfully');
     } catch (error) {
         console.error('Error loading models:', error);
