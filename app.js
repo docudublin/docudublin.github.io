@@ -49,8 +49,8 @@ async function initializeApp() {
     await new Promise((resolve, reject) => {
         overlayImage.onload = resolve;
         overlayImage.onerror = () => reject(new Error('Failed to load overlay image'));
-        // Use GitHub Pages URL
-        overlayImage.src = 'https://docudublin.github.io/overlay-face.svg';
+        // Use GitHub Pages URL with PNG instead of SVG
+        overlayImage.src = 'https://docudublin.github.io/overlay-face.png';
     }).catch(error => {
         console.error('Error loading overlay image:', error);
         alert('Error loading overlay image. Please check the console for details.');
