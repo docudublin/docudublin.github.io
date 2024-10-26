@@ -124,7 +124,7 @@ async function initializeApp() {
                 .replace(/[:.]/g, '-')
                 .replace('T', '_')
                 .replace('Z', '');
-            const filename = `processed-image_${dateString}.png`;
+            const filename = `mick-me_${dateString}.png`;
             
             // For mobile devices, create a blob and use different approach
             if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
