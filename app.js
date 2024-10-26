@@ -2,6 +2,11 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Add loading indicator
     const container = document.querySelector('.container');
+    if (!container) {
+        console.error('Container element not found');
+        return;
+    }
+    
     const loadingMessage = document.createElement('div');
     loadingMessage.style.textAlign = 'center';
     loadingMessage.style.padding = '10px';
@@ -33,6 +38,11 @@ async function initializeApp() {
     const photoInput = document.getElementById('photoInput');
     const photoPreview = document.getElementById('photoPreview');
     const resultCanvas = document.getElementById('resultCanvas');
+
+    // Log which elements are missing for debugging
+    if (!photoInput) console.error('photoInput not found');
+    if (!photoPreview) console.error('photoPreview not found');
+    if (!resultCanvas) console.error('resultCanvas not found');
 
     // Verify all elements exist
     if (!photoInput || !photoPreview || !resultCanvas) {
