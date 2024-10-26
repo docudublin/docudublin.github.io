@@ -85,13 +85,14 @@
             margin: 8px 0;
             border: 2px solid black;
             font-size: 16px;
+            font-weight: bold;
             width: 100%;
             max-width: 300px;
             box-sizing: border-box;
             -webkit-tap-highlight-color: transparent;
             touch-action: manipulation;
         }
-        .custom-file-input:hover {
+        .custom-file-input:hover, .download-button:hover {
             opacity: 0.9;
         }
         .custom-file-input:active, .download-button:active {
@@ -102,12 +103,6 @@
         }
         .download-button {
             display: none;
-            background: #2196F3;
-            color: white;
-            border: none;
-        }
-        .download-button:hover {
-            background: #1976D2;
         }
         @media (max-width: 480px) {
             body {
@@ -128,22 +123,22 @@
 </head>
 <body>
     <div class="container">
+        <img src="https://docudublin.github.io/logo.png" alt="Logo" class="logo">
+        
         <div class="upload-section">
             <h3></h3>
             <div class="input-wrapper">
-                <label for="photoInput" class="custom-file-input">Upload or Take a Photo</label>
+                <label for="photoInput" class="custom-file-input">Take a Photo</label>
                 <input type="file" id="photoInput" accept="image/*" capture="environment">
             </div>
+            <button id="downloadButton" class="download-button">Save Photo</button>
             <div class="preview-container">
                 <img id="photoPreview" class="preview-image">
                 <p>Preview will appear here</p>
             </div>
         </div>
 
-        <img src="https://docudublin.github.io/logo.png" alt="Logo" class="logo">
-
         <canvas id="resultCanvas"></canvas>
-        <button id="downloadButton" class="download-button">Download Processed Image</button>
     </div>
 
     <script src="app.js"></script>
