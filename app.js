@@ -32,11 +32,10 @@ async function initializeApp() {
     // Get DOM elements
     const photoInput = document.getElementById('photoInput');
     const photoPreview = document.getElementById('photoPreview');
-    const downloadButton = document.getElementById('downloadButton');
     const resultCanvas = document.getElementById('resultCanvas');
 
     // Verify all elements exist
-    if (!photoInput || !photoPreview || !downloadButton || !resultCanvas) {
+    if (!photoInput || !photoPreview || !resultCanvas) {
         throw new Error('Required DOM elements not found');
     }
 
@@ -49,8 +48,8 @@ async function initializeApp() {
     await new Promise((resolve, reject) => {
         overlayImage.onload = resolve;
         overlayImage.onerror = () => reject(new Error('Failed to load overlay image'));
-        // Use GitHub Pages URL with PNG instead of SVG
-        overlayImage.src = 'https://docudublin.github.io/overlay-face.png';
+        // Use GitHub Pages URL
+        overlayImage.src = 'https://docudublin.github.io/overlay-face.svg';
     }).catch(error => {
         console.error('Error loading overlay image:', error);
         alert('Error loading overlay image. Please check the console for details.');
@@ -65,29 +64,11 @@ async function initializeApp() {
                     // Automatically process the image after upload
                     if (photoPreview.src) {
                         await processImage(photoPreview, resultCanvas, ctx, overlayImage);
-                        if (downloadButton) {
-                            downloadButton.style.display = 'block';
-                        }
                     }
                 }
             } catch (error) {
                 console.error('Error handling file upload:', error);
                 alert('Error processing the image. Please try again.');
-            }
-        });
-    }
-
-    // Download button click handler
-    if (downloadButton) {
-        downloadButton.addEventListener('click', () => {
-            try {
-                const link = document.createElement('a');
-                link.download = 'processed-image.png';
-                link.href = resultCanvas.toDataURL('image/png');
-                link.click();
-            } catch (error) {
-                console.error('Error downloading image:', error);
-                alert('Error downloading the image. Please try again.');
             }
         });
     }
@@ -152,6 +133,19 @@ async function processImage(photoPreview, resultCanvas, ctx, overlayImage) {
                 box.height
             );
         }
+
+        // Generate unique datetime string for filename
+        const now = new Date();
+        const dateString = now.toISOString()
+            .replace(/[:.]/g, '-')
+            .replace('T', '_')
+            .replace('Z', '');
+        
+        // Automatically trigger download
+        const link = document.createElement('a');
+        link.download = `processed-image_${dateString}.png`;
+        link.href = resultCanvas.toDataURL('image/png');
+        link.click();
 
         // Remove processing message
         processingMessage.remove();
