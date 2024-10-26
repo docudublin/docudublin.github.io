@@ -8,64 +8,92 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            max-width: 800px;
+            max-width: 100%;
             margin: 0 auto;
-            padding: 20px;
+            padding: 12px;
             background-color: #f0f0f0;
         }
         .container {
             background-color: white;
-            padding: 20px;
+            padding: 16px;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 16px;
+            text-align: center;
         }
         .instructions {
             background-color: #e8f4ff;
-            padding: 15px;
+            padding: 12px;
             border-radius: 4px;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
             border-left: 4px solid #2196F3;
+            font-size: 14px;
+        }
+        .instructions h3 {
+            margin-top: 0;
+            font-size: 18px;
+        }
+        .instructions ol {
+            padding-left: 20px;
+            margin: 8px 0;
         }
         .upload-section {
-            margin: 20px 0;
+            margin: 16px 0;
         }
         .preview-container {
             position: relative;
             width: 100%;
-            max-width: 500px;
-            margin: 20px auto;
+            max-width: 100%;
+            margin: 16px auto;
             border: 2px dashed #ccc;
-            padding: 10px;
+            padding: 8px;
             text-align: center;
+            box-sizing: border-box;
         }
         .preview-image {
             max-width: 100%;
             display: block;
             margin: 0 auto;
+            height: auto;
         }
         #resultCanvas {
             max-width: 100%;
             display: block;
-            margin: 20px auto;
+            margin: 16px auto;
             border: 1px solid #ccc;
+            height: auto;
         }
         .input-wrapper {
             position: relative;
-            display: inline-block;
+            display: block;
+            text-align: center;
         }
         .custom-file-input, .download-button {
             display: inline-block;
-            padding: 10px 20px;
+            padding: 12px 24px;
             background: #4CAF50;
             color: white;
-            border-radius: 4px;
+            border-radius: 8px;
             cursor: pointer;
-            margin: 10px 0;
+            margin: 8px 0;
             border: none;
             font-size: 16px;
+            width: 100%;
+            max-width: 300px;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
         }
         .custom-file-input:hover, .download-button:hover {
             background: #45a049;
+        }
+        .custom-file-input:active, .download-button:active {
+            transform: scale(0.98);
         }
         #photoInput {
             display: none;
@@ -76,6 +104,24 @@
         }
         .download-button:hover {
             background: #1976D2;
+        }
+        @media (max-width: 480px) {
+            body {
+                padding: 8px;
+            }
+            .container {
+                padding: 12px;
+            }
+            h1 {
+                font-size: 20px;
+            }
+            .instructions {
+                font-size: 13px;
+            }
+            .custom-file-input, .download-button {
+                padding: 14px 20px;
+                font-size: 15px;
+            }
         }
     </style>
 </head>
@@ -98,7 +144,7 @@
             <h3>Upload Your Photo:</h3>
             <div class="input-wrapper">
                 <label for="photoInput" class="custom-file-input">Choose file</label>
-                <input type="file" id="photoInput" accept="image/*">
+                <input type="file" id="photoInput" accept="image/*" capture="environment">
             </div>
             <div class="preview-container">
                 <img id="photoPreview" class="preview-image">
