@@ -21,10 +21,28 @@
             max-width: 600px;
             margin: 0 auto;
         }
-        h1 {
-            font-size: 24px;
-            margin-bottom: 16px;
-            text-align: center;
+        .logo {
+            max-width: 200px;
+            display: block;
+            margin: 0 auto;
+            height: auto;
+        }
+        .take-photo-btn {
+            display: block;
+            padding: 12px 24px;
+            background: #53bdf9;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 16px auto;
+            font-size: 16px;
+            width: 100%;
+            max-width: 300px;
+            box-sizing: border-box;
+        }
+        .take-photo-btn:hover {
+            background: #3eaae6;
         }
         .instructions {
             background-color: #e8f4ff;
@@ -46,7 +64,7 @@
             margin: 16px 0;
         }
         .preview-container {
-            display: none; /* Hide the preview container */
+            display: none;
             position: relative;
             width: 100%;
             max-width: 100%;
@@ -113,9 +131,6 @@
             .container {
                 padding: 12px;
             }
-            h1 {
-                font-size: 20px;
-            }
             .instructions {
                 font-size: 13px;
             }
@@ -128,7 +143,8 @@
 </head>
 <body>
     <div class="container">
-        <h1>Mick Me</h1>
+        <button class="take-photo-btn">Take Photo</button>
+        <img src="https://docudublin.github.io/logo.png" alt="Logo" class="logo">
         
         <div class="upload-section">
             <h3></h3>
