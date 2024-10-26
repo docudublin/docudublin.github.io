@@ -46,6 +46,7 @@
             margin: 16px 0;
         }
         .preview-container {
+            display: none; /* Hide the preview container */
             position: relative;
             width: 100%;
             max-width: 100%;
@@ -128,22 +129,11 @@
 <body>
     <div class="container">
         <h1>Mick Me</h1>
-        <!--
-        <div class="instructions">
-            <h3>How to use:</h3>
-            <ol>
-                <li>Click "Choose file" to upload a photo containing faces</li>
-                <li>Wait for the face detection to process</li>
-                <li>The app will automatically add overlays to detected faces</li>
-                <li>The processed image will download automatically</li>
-                <li>You can also use the download button to save the image again</li>
-            </ol>
-        </div>-->
         
         <div class="upload-section">
-            <h3>Upload Your Photo:</h3>
+            <h3></h3>
             <div class="input-wrapper">
-                <label for="photoInput" class="custom-file-input">Choose file</label>
+                <label for="photoInput" class="custom-file-input">Upload or Take a Photo</label>
                 <input type="file" id="photoInput" accept="image/*" capture="environment">
             </div>
             <div class="preview-container">

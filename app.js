@@ -274,18 +274,8 @@ async function processImage(photoPreview, resultCanvas, ctx, overlayImage, downl
             );
         }
 
-        // Generate unique datetime string for filename
-        const now = new Date();
-        const dateString = now.toISOString()
-            .replace(/[:.]/g, '-')
-            .replace('T', '_')
-            .replace('Z', '');
-        
-        // Automatically trigger download
-        const link = document.createElement('a');
-        link.download = `processed-image_${dateString}.png`;
-        link.href = resultCanvas.toDataURL('image/png');
-        link.click();
+        // Show the result canvas
+        resultCanvas.style.display = 'block';
 
         // Show download button for additional downloads
         downloadButton.style.display = 'inline-block';
