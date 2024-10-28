@@ -1,0 +1,156 @@
+.container {
+  max-width: 100%;
+  overflow-x: auto;
+  padding: 1rem;
+  margin: 0 auto;
+}
+
+.gameBoard {
+  display: table;
+  border-collapse: separate;
+  border-spacing: 2px;
+  margin: 0 auto;
+  min-width: min-content;
+  table-layout: fixed;
+}
+
+.header {
+  display: table-row;
+}
+
+.playerName {
+  display: table-cell;
+  padding: 0.5rem 0.75rem;
+  text-align: center;
+  font-weight: bold;
+  width: 120px;
+  background-color: #007bff;
+  color: white;
+  border-radius: 6px;
+  vertical-align: middle;
+}
+
+.row {
+  display: table-row;
+}
+
+.labelCell {
+  display: table-cell;
+  padding: 0.5rem;
+  text-align: right;
+  font-weight: bold;
+  vertical-align: middle;
+  width: 60px;
+  white-space: nowrap;
+}
+
+.cell {
+  display: table-cell;
+  padding: 0.5rem 0.75rem;
+  text-align: center;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+  width: 120px;
+  vertical-align: middle;
+}
+
+.input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 2px solid #ddd;
+  border-radius: 4px;
+  text-align: center;
+  font-size: 1rem;
+  box-sizing: border-box;
+  margin: 0;
+  height: 2.5rem;
+}
+
+.input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.input.warning {
+  border-color: #ffc107;
+  background-color: #fff3cd;
+}
+
+.input:disabled {
+  background-color: #e9ecef;
+  cursor: not-allowed;
+}
+
+.warningMessage {
+  color: #856404;
+  background-color: #fff3cd;
+  padding: 0.5rem;
+  margin: 0.5rem 0;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.calculateButton {
+  display: block;
+  margin: 1rem auto;
+  padding: 0.8rem 2rem;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.calculateButton:hover {
+  background-color: #218838;
+}
+
+.calculateButton:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+}
+
+.gameComplete {
+  text-align: center;
+  margin-top: 2rem;
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  font-size: 1.1rem;
+}
+
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+  .container {
+    padding: 0.5rem;
+  }
+
+  .playerName, .cell {
+    width: 100px;
+    padding: 0.4rem 0.6rem;
+  }
+
+  .input {
+    padding: 0.4rem;
+    font-size: 0.9rem;
+  }
+
+  .labelCell {
+    width: 50px;
+    padding: 0.4rem;
+  }
+
+  .calculateButton {
+    padding: 0.6rem 1.5rem;
+    font-size: 1rem;
+  }
+}
+
+/* Ensure horizontal scrolling works smoothly on mobile */
+@media (max-width: 480px) {
+  .container {
+    -webkit-overflow-scrolling: touch;
+  }
+}
