@@ -264,13 +264,19 @@ async function processImage(photoPreview, resultCanvas, ctx, overlayImage, downl
         for (const detection of mainDetections) {
             const { box } = detection;
 
-            // Draw overlay image directly (no face detection needed)
+            // Adjust overlay size and position
+            const overlayWidth = box.width * 1.2; // Make overlay slightly wider than face
+            const overlayHeight = box.height * 1.4; // Make overlay taller to account for hat
+            const overlayX = box.x - (overlayWidth - box.width) / 2; // Center horizontally
+            const overlayY = box.y - (overlayHeight - box.height) * 0.6; // Move up to account for hat
+
+            // Draw overlay image with adjusted dimensions
             ctx.drawImage(
                 overlayImage,
-                box.x,
-                box.y,
-                box.width,
-                box.height
+                overlayX,
+                overlayY,
+                overlayWidth,
+                overlayHeight
             );
         }
 
