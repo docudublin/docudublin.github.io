@@ -118,31 +118,65 @@ async function initializeApp() {
     // Handle download button click with better mobile support
     downloadButton.addEventListener('click', () => {
         try {
-            const link = document.createElement('a');
             const now = new Date();
             const dateString = now.toISOString()
                 .replace(/[:.]/g, '-')
                 .replace('T', '_')
                 .replace('Z', '');
-            const filename = `mick-me_${dateString}.png`;
+
+            // Download overlayed image
+            const overlayedLink = document.createElement('a');
+            const overlayedFilename = `mick-me_${dateString}.png`;
             
-            // For mobile devices, create a blob and use different approach
+            // Download original image
+            const originalLink = document.createElement('a');
+            const originalFilename = `original_${dateString}.png`;
+
+            // For mobile devices, create blobs and use different approach
             if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-                resultCanvas.toBlob((blob) => {
-                    const url = window.URL.createObjectURL(blob);
-                    link.href = url;
-                    link.download = filename;
-                    link.click();
-                    setTimeout(() => window.URL.revokeObjectURL(url), 100);
+                // Handle overlayed image
+                resultCanvas.toBlob((overlayedBlob) => {
+                    const overlayedUrl = window.URL.createObjectURL(overlayedBlob);
+                    overlayedLink.href = overlayedUrl;
+                    overlayedLink.download = overlayedFilename;
+                    overlayedLink.click();
+                    setTimeout(() => window.URL.revokeObjectURL(overlayedUrl), 100);
+                });
+
+                // Handle original image
+                const originalCanvas = document.createElement('canvas');
+                originalCanvas.width = photoPreview.naturalWidth;
+                originalCanvas.height = photoPreview.naturalHeight;
+                const originalCtx = originalCanvas.getContext('2d');
+                originalCtx.drawImage(photoPreview, 0, 0);
+                
+                originalCanvas.toBlob((originalBlob) => {
+                    const originalUrl = window.URL.createObjectURL(originalBlob);
+                    originalLink.href = originalUrl;
+                    originalLink.download = originalFilename;
+                    originalLink.click();
+                    setTimeout(() => window.URL.revokeObjectURL(originalUrl), 100);
                 });
             } else {
-                link.download = filename;
-                link.href = resultCanvas.toDataURL('image/png');
-                link.click();
+                // Handle overlayed image
+                overlayedLink.download = overlayedFilename;
+                overlayedLink.href = resultCanvas.toDataURL('image/png');
+                overlayedLink.click();
+
+                // Handle original image
+                const originalCanvas = document.createElement('canvas');
+                originalCanvas.width = photoPreview.naturalWidth;
+                originalCanvas.height = photoPreview.naturalHeight;
+                const originalCtx = originalCanvas.getContext('2d');
+                originalCtx.drawImage(photoPreview, 0, 0);
+                
+                originalLink.download = originalFilename;
+                originalLink.href = originalCanvas.toDataURL('image/png');
+                originalLink.click();
             }
         } catch (error) {
-            console.error('Error downloading image:', error);
-            showMessage('Error downloading image. Please try again.', true);
+            console.error('Error downloading images:', error);
+            showMessage('Error downloading images. Please try again.', true);
         }
     });
 }
@@ -265,14 +299,11 @@ async function processImage(photoPreview, resultCanvas, ctx, overlayImage, downl
             const { box } = detection;
 
             // Adjust overlay size and position
-            const overlayWidth = box.width * 1.2; // Make overlay slightly wider than face
-            const overlayHeight = box.height * 1.4; // Make overlay taller to account for hat
+            const overlayWidth = box.width * 1; // Slightly smaller width (was 1.2)
+            const overlayHeight = box.height * 1.3; // Slightly smaller height (was 1.4)
             const overlayX = box.x - (overlayWidth - box.width) / 2; // Center horizontally
-            const overlayY = box.y - (overlayHeight - box.height) * 0.6; // Move up to account for hat
+            const overlayY = box.y - (overlayHeight - box.height) * 1; // Move up more (was 0.6)
 
-            // Set blend mode to soft-light before drawing overlay
-            ctx.globalCompositeOperation = 'soft-light';
-            
             // Draw overlay image with adjusted dimensions
             ctx.drawImage(
                 overlayImage,
@@ -281,9 +312,6 @@ async function processImage(photoPreview, resultCanvas, ctx, overlayImage, downl
                 overlayWidth,
                 overlayHeight
             );
-
-            // Reset blend mode to default
-            ctx.globalCompositeOperation = 'source-over';
         }
 
         // Show the result canvas
