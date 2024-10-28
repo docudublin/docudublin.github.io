@@ -270,6 +270,9 @@ async function processImage(photoPreview, resultCanvas, ctx, overlayImage, downl
             const overlayX = box.x - (overlayWidth - box.width) / 2; // Center horizontally
             const overlayY = box.y - (overlayHeight - box.height) * 0.6; // Move up to account for hat
 
+            // Set blend mode to soft-light before drawing overlay
+            ctx.globalCompositeOperation = 'soft-light';
+            
             // Draw overlay image with adjusted dimensions
             ctx.drawImage(
                 overlayImage,
@@ -278,6 +281,9 @@ async function processImage(photoPreview, resultCanvas, ctx, overlayImage, downl
                 overlayWidth,
                 overlayHeight
             );
+
+            // Reset blend mode to default
+            ctx.globalCompositeOperation = 'source-over';
         }
 
         // Show the result canvas
