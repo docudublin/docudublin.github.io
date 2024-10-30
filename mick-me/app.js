@@ -67,7 +67,7 @@ async function initializeApp() {
     await new Promise((resolve, reject) => {
         overlayImage.onload = resolve;
         overlayImage.onerror = () => reject(new Error('Failed to load overlay image'));
-        overlayImage.src = 'https://docudublin.github.io/overlay-face.png';
+        overlayImage.src = 'assets/overlay-face.png';
     }).catch(error => {
         console.error('Error loading overlay image:', error);
         showMessage('Error loading overlay image. Please try again.', true);

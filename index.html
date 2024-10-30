@@ -5,105 +5,77 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>App Selection</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            background-color: #1a1a1a;
-            color: #ffffff;
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f0f0f0;
         }
-
-        header {
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
             text-align: center;
-            padding: 2rem;
-            background-color: #2a2a2a;
         }
-
-        main {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 2rem;
-            padding: 2rem;
-            flex-wrap: wrap;
+        .app-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
         }
-
         .app-card {
-            width: 300px;
-            aspect-ratio: 1;
-            padding: 2rem;
-            border-radius: 1rem;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
             text-align: center;
-            text-decoration: none;
-            color: #ffffff;
             transition: transform 0.2s;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
         }
-
         .app-card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
-
-        .guessing-game {
-            background-color: #FFB5BA; /* Pastel Pink */
-            color: #2a2a2a;
+        .app-link {
+            display: inline-block;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            padding: 10px 20px;
+            background: #52b4f3;
+            color: black;
+            border-radius: 4px;
+            margin-top: 10px;
+            border: 2px solid black;
         }
-
-        .mick-me {
-            background-color: #B5D8FF; /* Pastel Blue */
-            color: #2a2a2a;
+        .app-link:hover {
+            opacity: 0.9;
         }
-
-        h1 {
-            margin-bottom: 1rem;
-            font-size: 2.5rem;
-        }
-
-        h2 {
-            margin-bottom: 1rem;
-            font-size: 1.5rem;
-        }
-
-        p {
-            color: #333333;
-            line-height: 1.5;
-        }
-
-        @media (max-width: 768px) {
-            main {
-                padding: 1rem;
-            }
-
-            .app-card {
-                width: 280px;
-            }
+        .app-description {
+            color: #666;
+            margin: 10px 0;
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Welcome to My Apps</h1>
-    </header>
-    <main>
-        <a href="guessing-game.html" class="app-card guessing-game">
-            <h2>The Guessing Game</h2>
-            <p>A scoring app for the Guessing Game. Where players make guesses and earn points!</p>
-        </a>
-        <a href="mick-me.html" class="app-card mick-me">
-            <h2>Mick Me</h2>
-            <p>Take a photo of a person and this app will put Micks face on them ! Mick Them, Mick Me, Mick Everyone!</p>
-        </a>
-    </main>
+    <div class="container">
+        <h1>Available Apps</h1>
+        <div class="app-grid">
+            <div class="app-card">
+                <h2>Mick Me</h2>
+                <p class="app-description">Upload a photo and add Mick's face overlay using face detection.</p>
+                <a href="mick-me/index.html" class="app-link">Launch Mick Me</a>
+            </div>
+            <div class="app-card">
+                <h2>The Guessing Game</h2>
+                <p class="app-description">A fun multiplayer scoring game where players make guesses.</p>
+                <a href="guessing-game/index.html" class="app-link">Launch Guessing Game</a>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
